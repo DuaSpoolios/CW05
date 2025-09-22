@@ -17,6 +17,17 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   int happinessLevel = 50;
   int hungerLevel = 50;
 
+  // Determine pet color based on happiness level
+  Color _getPetColor() {
+    if (happinessLevel > 70) {
+      return Colors.green; // Happy
+    } else if (happinessLevel >= 30) {
+      return Colors.yellow; // Neutral
+    } else {
+      return Colors.red; // Unhappy
+    }
+  }
+
   void _playWithPet() {
     setState(() {
       happinessLevel += 10;
@@ -74,6 +85,22 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 32.0),
+
+            // --- Cat image with dynamic background color ---
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _getPetColor(),      // background color changes dynamically
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Image.asset(
+                'assets/images/cat.png',
+                width: 200,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(height: 20),
+
             ElevatedButton(
               onPressed: _playWithPet,
               child: Text('Play with Your Pet'),
